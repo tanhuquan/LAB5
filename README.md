@@ -1,3 +1,3 @@
-# LAB5
-Ta Nhu quan
-Vu Kim Thien
+# Student Manager
+
+Ứng dụng quản lý sinh viên — DevOps Lab 5

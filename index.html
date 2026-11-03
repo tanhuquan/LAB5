@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Manager — DevOps Lab 5</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Quản Lý Sinh Viên</h1>
+      <p class="subtitle">Ứng dụng Web đơn giản (HTML + CSS + JS)</p>
+    </header>
+
+    <section class="card form-section">
+      <h2 id="form-title">Thêm sinh viên mới</h2>
+      <form id="student-form">
+        <input type="hidden" id="student-index">
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="student-id">Mã sinh viên (MSSV)</label>
+            <input type="text" id="student-id" placeholder="VD: SV001" required>
+          </div>
+          <div class="form-group">
+            <label for="student-name">Họ và tên</label>
+            <input type="text" id="student-name" placeholder="VD: Nguyễn Văn A" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="student-class">Lớp</label>
+            <input type="text" id="student-class" placeholder="VD: K17-CNTT" required>
+          </div>
+          <div class="form-group">
+            <label for="student-gpa">Điểm trung bình (GPA)</label>
+            <input type="number" id="student-gpa" step="0.1" min="0" max="10" placeholder="VD: 8.5" required>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" id="btn-save" class="btn btn-primary">Lưu sinh viên</button>
+          <button type="button" id="btn-cancel" class="btn btn-secondary" style="display: none;">Hủy</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card list-section">
+      <div class="list-header">
+        <h2>Danh sách sinh viên (<span id="total-students">0</span>)</h2>
+        <input type="text" id="search-box" placeholder="Tìm kiếm theo tên hoặc MSSV...">
+      </div>
+      
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>MSSV</th>
+              <th>Họ và tên</th>
+              <th>Lớp</th>
+              <th>GPA</th>
+              <th>Xếp loại</th>
+              <th>Thao tác</th>
+            </tr>
+          </thead>
+          <tbody id="student-list">
+            <!-- Render từ JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
