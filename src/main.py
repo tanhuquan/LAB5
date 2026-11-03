@@ -4,7 +4,6 @@ Module: Main Application
 """
 from student import Student
 
-
 def main():
     print("=" * 50)
     print("STUDENT MANAGER — DevOps Lab 5")
@@ -21,33 +20,38 @@ def main():
 
     for student in students:
         print(f"  {student}")
-
     print(f"\nTotal: {len(students)} students")
+
+    # Tìm kiếm sinh viên
+    print("\n--- Tìm kiếm ---")
+    search_student(students, "Van")
 
 
 if __name__ == "__main__":
     main()
 
-def add_student(students: list, student_id: str, name: str, age: int, grade: str) -> list:
-    """Thêm sinh viên mới vào danh sách.
+def search_student(students: list, keyword: str) -> list:
+    """Tìm kiếm sinh viên theo tên hoặc mã.
 
     Args:
-        students: Danh sách sinh viên hiện tại
-        student_id: Mã sinh viên
-        name: Họ tên
-        age: Tuổi
-        grade: Khóa
+        students: Danh sách sinh viên
+        keyword: Từ khóa tìm kiếm
 
     Returns:
-        Danh sách sinh viên đã được cập nhật
+        Danh sách sinh viên khớp với từ khóa
     """
-    # Kiểm tra trùng mã sinh viên
-    for s in students:
-        if s.student_id == student_id:
-            print(f"❌ Mã sinh viên {student_id} đã tồn tại!")
-            return students
+    results = []
+    keyword_lower = keyword.lower()
 
-    new_student = Student(student_id, name, age, grade)
-    students.append(new_student)
-    print(f"Đã thêm sinh viên: {new_student}")
-    return students
+    for s in students:
+        if keyword_lower in s.name.lower() or keyword_lower in s.student_id.lower():
+            results.append(s)
+
+    if results:
+        print(f"🔍 Tìm thấy {len(results)} sinh viên với từ khóa '{keyword}':")
+        for s in results:
+            print(f"  {s}")
+    else:
+        print(f"❌ Không tìm thấy sinh viên nào với từ khóa '{keyword}'")
+
+    return results
