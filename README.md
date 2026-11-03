@@ -15,3 +15,4 @@
 git clone https://github.com/<USER>/devops-lab5-student-manager.git
 cd devops-lab5-student-manager
 python src/main.py
+```

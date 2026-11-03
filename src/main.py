@@ -2,33 +2,43 @@
 Student Manager — DevOps Lab 5
 Module: Main Application
 """
+import sys
+
+# Đảm bảo in tiếng Việt / UTF-8 trên Windows console không bị lỗi mã hóa cp1252
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+        sys.stderr.reconfigure(encoding="utf-8")
+    except AttributeError:
+        pass
+
 from student import Student
 
-def main():
-    print("=" * 50)
-    print("STUDENT MANAGER — DevOps Lab 5")
-    print("=" * 50)
 
-    students = [
-        Student("SV001", "Nguyen Van A", 20, "K20"),
-        Student("SV002", "Tran Thi B", 21, "K20"),
-        Student("SV003", "Le Van C", 19, "K21"),
-    ]
+def add_student(students: list, student_id: str, name: str, age: int, grade: str) -> list:
+    """Thêm sinh viên mới vào danh sách.
 
-    # Thêm sinh viên mới
-    students = add_student(students, "SV004", "Pham Thi D", 22, "K19")
+    Args:
+        students: Danh sách sinh viên hiện tại
+        student_id: Mã sinh viên
+        name: Họ tên
+        age: Tuổi
+        grade: Khóa
 
-    for student in students:
-        print(f"  {student}")
-    print(f"\nTotal: {len(students)} students")
+    Returns:
+        Danh sách sinh viên đã được cập nhật
+    """
+    # Kiểm tra trùng mã sinh viên
+    for s in students:
+        if s.student_id == student_id:
+            print(f"❌ Mã sinh viên {student_id} đã tồn tại!")
+            return students
 
-    # Tìm kiếm sinh viên
-    print("\n--- Tìm kiếm ---")
-    search_student(students, "Van")
+    new_student = Student(student_id, name, age, grade)
+    students.append(new_student)
+    print(f"Đã thêm sinh viên: {new_student}")
+    return students
 
-
-if __name__ == "__main__":
-    main()
 
 def search_student(students: list, keyword: str) -> list:
     """Tìm kiếm sinh viên theo tên hoặc mã.
@@ -55,3 +65,30 @@ def search_student(students: list, keyword: str) -> list:
         print(f"❌ Không tìm thấy sinh viên nào với từ khóa '{keyword}'")
 
     return results
+
+
+def main():
+    print("=" * 50)
+    print("STUDENT MANAGER — DevOps Lab 5")
+    print("=" * 50)
+
+    students = [
+        Student("SV001", "Nguyen Van A", 20, "K20"),
+        Student("SV002", "Tran Thi B", 21, "K20"),
+        Student("SV003", "Le Van C", 19, "K21"),
+    ]
+
+    # Thêm sinh viên mới
+    students = add_student(students, "SV004", "Pham Thi D", 22, "K19")
+
+    for student in students:
+        print(f"  {student}")
+    print(f"\nTotal: {len(students)} students")
+
+    # Tìm kiếm sinh viên
+    print("\n--- Tìm kiếm ---")
+    search_student(students, "Van")
+
+
+if __name__ == "__main__":
+    main()
